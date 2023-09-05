@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Clima</title>
+</head>
+<body>
+    <h1>Consulta de Clima</h1>
+    <button onclick="consultarClima()">Consultar Clima</button>
+    <div id="clima"></div>
+
+    <script>
+        function consultarClima() {
+            // URL de la API de OpenWeatherMap (reemplaza con tu propia clave de API)
+            const apiKey = 'TU_CLAVE_DE_API';
+            const ciudad = 'NOMBRE_DE_LA_CIUDAD';
+
+            // Realizar una solicitud GET a la API
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Procesar los datos de respuesta
+                    const temperatura = data.main.temp;
+                    const descripcion = data.weather[0].description;
+
+                    // Mostrar los datos en la página HTML
+                    document.getElementById('clima').innerHTML = `Temperatura: ${temperatura}°C, Descripción: ${descripcion}`;
+                })
+                .catch(error => {
+                    console.error('Error al consultar el clima:', error);
+                });
+        }
+    </script>
+</body>
+</html>
